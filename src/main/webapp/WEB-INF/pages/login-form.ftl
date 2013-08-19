@@ -8,7 +8,7 @@
 </style>
 </head>
 <body>
-<h1>Login page with freemarker</h1>
+<h1>Login page with freemarke</h1>
 
 <form method="post" action="j_spring_security_check">
 <table>

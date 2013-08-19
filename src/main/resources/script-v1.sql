@@ -1,4 +1,4 @@
-CREATE TABLE fk_tbluser
+CREATE TABLE tbluser
 (
   cid serial NOT NULL,
   name character varying(200),
@@ -13,13 +13,12 @@ CREATE TABLE fk_tbluser
   ipaddress character varying(30),
   issystempassword boolean DEFAULT false,
   signupuser boolean DEFAULT false,
-  theme character varying(25),
   deleted boolean DEFAULT false,
-  CONSTRAINT fk_tbluser_pkey PRIMARY KEY (cid ),
-  CONSTRAINT fk_tbluser_name_key UNIQUE (name )
+  CONSTRAINT tbluser_pkey PRIMARY KEY (cid ),
+  CONSTRAINT tbluser_name_key UNIQUE (name )
 )
 
-CREATE TABLE fk_tblrole
+CREATE TABLE tblrole
 (
   cid serial NOT NULL,
   name character varying(50),
@@ -27,25 +26,25 @@ CREATE TABLE fk_tblrole
   isprivate boolean DEFAULT false,
   system boolean DEFAULT false,
   description character varying,
-  CONSTRAINT fk_tblrole_pkey PRIMARY KEY (cid ),
-  CONSTRAINT fk_tblrole_name_key UNIQUE (name )
+  CONSTRAINT tblrole_pkey PRIMARY KEY (cid ),
+  CONSTRAINT tblrole_name_key UNIQUE (name )
 )
 
-CREATE TABLE fk_user_roles
+CREATE TABLE tbl_user_roles
 (
   cid serial NOT NULL,
   userid integer NOT NULL,
   roleid integer NOT NULL,
-  CONSTRAINT fk_user_roles_pkey PRIMARY KEY (cid ),
-  CONSTRAINT fk_user_roles_fk_1 FOREIGN KEY (userid)
-      REFERENCES fk_tbluser (cid) MATCH SIMPLE
+  CONSTRAINT tbl_user_roles_pkey PRIMARY KEY (cid ),
+  CONSTRAINT tbl_user_roles_fk_1 FOREIGN KEY (userid)
+      REFERENCES tbluser (cid) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fk_user_roles_fk_2 FOREIGN KEY (roleid)
-      REFERENCES fk_tblrole (cid) MATCH SIMPLE
+  CONSTRAINT tbl_user_roles_fk_2 FOREIGN KEY (roleid)
+      REFERENCES tblrole (cid) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 
-CREATE TABLE fk_tblfeatures
+CREATE TABLE tblaccessrights
 (
   cid serial NOT NULL,
   parentid integer,
@@ -53,7 +52,6 @@ CREATE TABLE fk_tblfeatures
   code character varying(50),
   enabled boolean NOT NULL DEFAULT true,
   itemorder character varying(250),
-  modulename character varying(100),
   servicecode character varying(500),
   isold boolean DEFAULT false,
   isprivate boolean DEFAULT false,
@@ -62,79 +60,76 @@ CREATE TABLE fk_tblfeatures
   ismanager boolean DEFAULT false,
   CONSTRAINT fk_tblfeatures_pkey PRIMARY KEY (cid ),
   CONSTRAINT fk_role_features_fk_1 FOREIGN KEY (parentid)
-      REFERENCES fk_tblfeatures (cid) MATCH SIMPLE
+      REFERENCES tblaccessrights (cid) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fk_tblfeatures_code_key UNIQUE (code )
+  CONSTRAINT tblaccessrights_code_key UNIQUE (code )
 )
 
-CREATE TABLE fk_role_features
+CREATE TABLE tbl_role_accessrights
 (
   cid serial NOT NULL,
   roleid integer NOT NULL,
   featureid integer NOT NULL,
   read_write_access boolean DEFAULT false,
-  CONSTRAINT fk_role_features_pkey PRIMARY KEY (cid ),
-  CONSTRAINT fk_role_features_fk_1 FOREIGN KEY (featureid)
-      REFERENCES fk_tblfeatures (cid) MATCH SIMPLE
+  CONSTRAINT tbl_role_accessrights_pkey PRIMARY KEY (cid ),
+  CONSTRAINT tbl_role_accessrights_fk_1 FOREIGN KEY (featureid)
+      REFERENCES tblaccessrights (cid) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fk_role_features_fk_2 FOREIGN KEY (roleid)
-      REFERENCES fk_tblrole (cid) MATCH SIMPLE
+  CONSTRAINT tbl_role_accessrights_fk_2 FOREIGN KEY (roleid)
+      REFERENCES tblrole (cid) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT uq_fk_role_features_role_feature UNIQUE (roleid , featureid )
+  CONSTRAINT uq_tbl_role_accessrights_role_feature UNIQUE (roleid , featureid )
 )
 
 
 
-insert into fk_tbluser(name,isadmin,password,email) values('admin',true,'sa','arun@greytip.com')
+insert into tbluser(name,isadmin,password,email) values('superuser',true,'sa','rathordeepak1985@yahoo.in')
 
-insert into fk_tbluser(name,isadmin,password,email) values('manager',true,'sa','arun@greytip.com')
+insert into tbluser(name,isadmin,password,email) values('manager',true,'sa','rathordeepak1985@yahoo.in')
 
-insert into fk_tbluser(name,isadmin,password,email) values('employee',true,'sa','arun@greytip.com')
+insert into tbluser(name,isadmin,password,email) values('employee',true,'sa','rathordeepak1985@yahoo.in')
 
-insert into fk_tblrole(name,description) values('admin','Administrator')
+insert into tblrole(name,description) values('admin','Administrator')
 
-insert into fk_tblrole(name,description) values('Manager','Manager')
+insert into tblrole(name,description) values('Manager','Manager')
 
-insert into fk_tblrole(name,description) values('employee','Employee')
+insert into tblrole(name,description) values('employee','Employee')
 
-insert into fk_user_roles(userid,roleid) values(4,1);
+insert into tbl_user_roles(userid,roleid) values(1,1);
 
-insert into fk_user_roles(userid,roleid) values(5,2);
+insert into tbl_user_roles(userid,roleid) values(2,2);
 
-insert into fk_user_roles(userid,roleid) values(6,3);
+insert into tbl_user_roles(userid,roleid) values(3,3);
 
-insert into fk_tblfeatures(description,code,enabled,isadmin,isemployee,ismanager) 
+insert into tblaccessrights(description,code,enabled,isadmin,isemployee,ismanager) 
 values('Home Page','pg_home',true,true,true,true)
 
-insert into fk_tblfeatures(description,code,enabled,isadmin,isemployee,ismanager) 
+insert into tblaccessrights(description,code,enabled,isadmin,isemployee,ismanager) 
 values('Admin Page','pg_adm_home',true,true,false,false)
 
-insert into fk_tblfeatures(description,code,enabled,isadmin,isemployee,ismanager) 
+insert into tblaccessrights(description,code,enabled,isadmin,isemployee,ismanager) 
 values('Manager Page','pg_mgr_home',true,true,false,true)
 
-insert into fk_tblfeatures(description,code,enabled,isadmin,isemployee,ismanager) 
+insert into tblaccessrights(description,code,enabled,isadmin,isemployee,ismanager) 
 values('Employee Page','pg_emp_home',true,true,true,false)
 
-insert into fk_role_features(roleid,featureid,read_write_access) 
+insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(1,1,true)
 
-insert into fk_role_features(roleid,featureid,read_write_access) 
+insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(1,2,true)
 
-insert into fk_role_features(roleid,featureid,read_write_access) 
+insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(1,3,true)
 
-insert into fk_role_features(roleid,featureid,read_write_access) 
+insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(2,1,true)
 
-insert into fk_role_features(roleid,featureid,read_write_access) 
+insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(2,2,true)
 
-insert into fk_role_features(roleid,featureid,read_write_access) 
+insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(3,1,true)
 
-insert into fk_role_features(roleid,featureid,read_write_access) 
+insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(3,3,true)
-
-
-

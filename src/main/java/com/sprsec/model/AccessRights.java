@@ -9,12 +9,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "fk_tblfeatures")
-public class Feature {
+@Table(name = "tblaccessrights")
+public class AccessRights {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "fk_tblfeatures_cid_gen")
-	@SequenceGenerator(name = "fk_tblfeatures_cid_gen", sequenceName = "fk_tblfeatures_cid_seq")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "tblaccessrights_cid_gen")
+	@SequenceGenerator(name = "tblaccessrights_cid_gen", sequenceName = "tblaccessrights_cid_seq")
 	@Column(name = "cid")
 	private Integer id;
 
@@ -27,8 +27,6 @@ public class Feature {
 	private boolean enabled;
 
 	private String itemOrder;
-
-	private String moduleName;
 
 	private String serviceCode;
 
@@ -88,14 +86,6 @@ public class Feature {
 
 	public void setItemOrder(String itemOrder) {
 		this.itemOrder = itemOrder;
-	}
-
-	public String getModuleName() {
-		return moduleName;
-	}
-
-	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
 	}
 
 	public String getServiceCode() {

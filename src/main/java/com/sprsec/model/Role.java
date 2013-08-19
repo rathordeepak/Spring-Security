@@ -16,12 +16,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "fk_tblrole")
+@Table(name = "tblrole")
 public class Role {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "fk_tblrole_cid_gen")
-	@SequenceGenerator(name = "fk_tblrole_cid_gen", sequenceName = "fk_tblrole_cid_seq")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "tblrole_cid_gen")
+	@SequenceGenerator(name = "tblrole_cid_gen", sequenceName = "tblrole_cid_seq")
 	@Column(name = "cid")
 	private Integer id;
 
@@ -36,8 +36,8 @@ public class Role {
 	private boolean description;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "fk_role_features", joinColumns = { @JoinColumn(name = "roleid", referencedColumnName = "cid") }, inverseJoinColumns = { @JoinColumn(name = "featureid", referencedColumnName = "cid") })
-	private Set<Feature> userRoles;
+	@JoinTable(name = "tbl_role_accessrights", joinColumns = { @JoinColumn(name = "roleid", referencedColumnName = "cid") }, inverseJoinColumns = { @JoinColumn(name = "featureid", referencedColumnName = "cid") })
+	private Set<AccessRights> userRoles;
 
 	public Integer getId() {
 		return id;
@@ -87,11 +87,11 @@ public class Role {
 		this.description = description;
 	}
 
-	public Set<Feature> getUserRoles() {
+	public Set<AccessRights> getUserRoles() {
 		return userRoles;
 	}
 
-	public void setUserRoles(Set<Feature> userRoles) {
+	public void setUserRoles(Set<AccessRights> userRoles) {
 		this.userRoles = userRoles;
 	}
 

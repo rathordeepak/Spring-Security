@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sprsec.dao.UserDAO;
-import com.sprsec.model.Feature;
+import com.sprsec.model.AccessRights;
 import com.sprsec.model.Role;
 
 @Service
@@ -64,9 +64,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return roles;
 	}
 	
-	public static List<GrantedAuthority> getGrantedAuthorities(Set<Feature> roles) {
+	public static List<GrantedAuthority> getGrantedAuthorities(Set<AccessRights> roles) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		for (Feature feature: roles) {
+		for (AccessRights feature: roles) {
 			String featureCode= "ROLE_"+feature.getCode().toUpperCase();
 			authorities.add(new SimpleGrantedAuthority(featureCode));
 		}

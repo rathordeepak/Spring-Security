@@ -15,12 +15,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "fk_tbluser")
+@Table(name = "tbluser")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "fk_tbluser_cid_gen")
-	@SequenceGenerator(name = "fk_tbluser_cid_gen", sequenceName = "fk_tbluser_cid_seq")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "tbluser_cid_gen")
+	@SequenceGenerator(name = "tbluser_cid_gen", sequenceName = "tbluser_cid_seq")
 	@Column(name = "cid")
 	private Integer id;
 
@@ -50,12 +50,10 @@ public class User {
 
 	private boolean signupUser;
 
-	private String theme;
-
 	private boolean deleted;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "fk_user_roles", joinColumns = { @JoinColumn(name = "userid", referencedColumnName = "cid") }, inverseJoinColumns = { @JoinColumn(name = "roleid", referencedColumnName = "cid") })
+	@JoinTable(name = "tbl_user_roles", joinColumns = { @JoinColumn(name = "userid", referencedColumnName = "cid") }, inverseJoinColumns = { @JoinColumn(name = "roleid", referencedColumnName = "cid") })
 	private Role role;
 
 	public Integer getId() {
@@ -152,14 +150,6 @@ public class User {
 
 	public void setSignupUser(boolean signupUser) {
 		this.signupUser = signupUser;
-	}
-
-	public String getTheme() {
-		return theme;
-	}
-
-	public void setTheme(String theme) {
-		this.theme = theme;
 	}
 
 	public boolean isDeleted() {
