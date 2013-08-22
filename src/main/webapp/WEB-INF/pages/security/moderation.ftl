@@ -7,5 +7,6 @@
 <p>This is Moderation page. It's available for moderators.<br/>
 <a href="${rc.getContextPath()}/j_spring_security_logout" />" >Logout</a> <br/>
 <a href="${rc.getContextPath()}/index.html">Home page</a><br/></p>
+<a href="${rc.getContextPath()}/test.html">Test Area</a><br/>
 </body>
 </html>

@@ -1,23 +1,32 @@
 package com.sprsec.init;
 
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -25,9 +34,11 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("com.sprsec")
-@PropertySource("classpath:application.properties")
+@PropertySource(name = "messages", value = {
+		"classpath:application.properties", "classpath:messages_de.properties",
+		"classpath:messages_en.properties" })
 @ImportResource("classpath:spring-security.xml")
-public class WebAppConfig {
+public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
 	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -52,6 +63,8 @@ public class WebAppConfig {
 				.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
 		dataSource.setPassword(env
 				.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+
+		System.out.println(env.getRequiredProperty("label.firstname"));
 
 		return dataSource;
 	}
@@ -106,5 +119,46 @@ public class WebAppConfig {
 		fvr.setSuffix(".ftl");
 		fvr.setRequestContextAttribute("rc");
 		return fvr;
+	}
+
+	@Bean
+	public LocaleResolver localeResolver() {
+		final CookieLocaleResolver ret = new CookieLocaleResolver();
+		ret.setDefaultLocale(new Locale("en_US"));
+		return ret;
+	}
+
+	@Bean()
+	public MessageSource messageSource() {
+		final ReloadableResourceBundleMessageSource ret = new ReloadableResourceBundleMessageSource();
+		ret.setBasename("classpath:messages");
+		ret.setDefaultEncoding("UTF-8");
+		return ret;
+	}
+
+	@Bean
+	public HandlerMapping handlerMapping() {
+		final LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
+		interceptor.setParamName("lang");
+		final DefaultAnnotationHandlerMapping ret = new DefaultAnnotationHandlerMapping();
+		ret.setInterceptors(new Object[] { interceptor });
+		return ret;
+	}
+
+	@Bean
+	public LocaleChangeInterceptor localeChangeInterceptor() {
+		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+		localeChangeInterceptor.setParamName("lang");
+		return localeChangeInterceptor;
+	}
+
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(localeChangeInterceptor());
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations(
+				"/resources/");
 	}
 }

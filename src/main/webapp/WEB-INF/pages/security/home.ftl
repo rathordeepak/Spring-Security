@@ -9,6 +9,7 @@
 <a href="${rc.getContextPath()}/sec/moderation.html">Moderation page</a><br/>
 <a href="${rc.getContextPath()}/admin/first.html">First Admin page</a><br/>
 <a href="${rc.getContextPath()}/admin/second.html">Second Admin page</a><br/>
+<a href="${rc.getContextPath()}/test.html">Test Area</a><br/>
 </p>
 </body>
 </html>
