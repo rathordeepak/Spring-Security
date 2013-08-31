@@ -16,4 +16,6 @@ public @interface Menu {
 	boolean visible();
 
 	String title();
+	
+	String url();
 }

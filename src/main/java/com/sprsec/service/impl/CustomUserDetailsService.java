@@ -20,54 +20,37 @@ import com.sprsec.model.AccessRights;
 import com.sprsec.model.Role;
 
 @Service
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
-	
+
 	@Autowired
-	private UserDAO userDAO;	
+	private UserDAO userDAO;
 
 	public UserDetails loadUserByUsername(String login)
 			throws UsernameNotFoundException {
-		
+
 		com.sprsec.model.User domainUser = userDAO.getUser(login);
-		
+
 		boolean enabled = true;
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
-		return new User(
-				domainUser.getName(), 
-				domainUser.getPassword(), 
-				enabled, 
-				accountNonExpired, 
-				credentialsNonExpired, 
-				accountNonLocked,
-				getAuthorities(domainUser.getRole())
-		);
+		return new User(domainUser.getName(), domainUser.getPassword(),
+				enabled, accountNonExpired, credentialsNonExpired,
+				accountNonLocked, getAuthorities(domainUser.getRole()));
 	}
-	
+
 	public Collection<? extends GrantedAuthority> getAuthorities(Role role) {
-		List<GrantedAuthority> authList = getGrantedAuthorities(role.getUserRoles());
+		List<GrantedAuthority> authList = getGrantedAuthorities(role
+				.getUserRoles());
 		return authList;
 	}
-	
-	public List<String> getRoles(Integer role) {
 
-		List<String> roles = new ArrayList<String>();
-		
-		if (role.intValue() == 1) {
-			roles.add("ROLE_MODERATOR");
-			roles.add("ROLE_ADMIN");
-		} else if (role.intValue() == 2) {
-			roles.add("ROLE_MODERATOR");
-		}
-		return roles;
-	}
-	
-	public static List<GrantedAuthority> getGrantedAuthorities(Set<AccessRights> roles) {
+	public static List<GrantedAuthority> getGrantedAuthorities(
+			Set<AccessRights> roles) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		for (AccessRights feature: roles) {
-			String featureCode= "ROLE_"+feature.getCode().toUpperCase();
+		for (AccessRights feature : roles) {
+			String featureCode = "ROLE_" + feature.getCode().toUpperCase();
 			authorities.add(new SimpleGrantedAuthority(featureCode));
 		}
 		return authorities;
