@@ -1,19 +1,12 @@
 package com.sprsec.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.navigation.Menu;
 import com.sprsec.service.impl.Navigation;
-import com.sprsec.service.impl.Navigation.NavEntry;
 
 @Controller
 public class LinkNavigation {
@@ -34,19 +26,7 @@ public class LinkNavigation {
 	@Secured("ROLE_PG_HOME")
 	public ModelAndView homePage(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		UserDetails userDetails = (UserDetails) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) userDetails
-				.getAuthorities();
-		Map<String, NavEntry> allowAccessList = navigation.getMenuList();
-		List<NavEntry> navigationEntries = new ArrayList<NavEntry>();
-		for (GrantedAuthority grantedAuthority : authorities) {
-			if (allowAccessList.get(grantedAuthority.getAuthority()) != null) {
-				navigationEntries.add(allowAccessList.get(grantedAuthority
-						.getAuthority()));
-			}
-		}
-		model.put("menus", navigationEntries);
+		model.put("menus", navigation.displayMenuList());
 		return new ModelAndView("security/home", model);
 	}
 
@@ -54,7 +34,9 @@ public class LinkNavigation {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	@Secured("ROLE_PG_HOME")
 	public ModelAndView indexPage() {
-		return new ModelAndView("security/home");
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("menus", navigation.displayMenuList());
+		return new ModelAndView("security/home", model);
 	}
 
 	@Menu(title = "Manager", url = "/manager/home", accessCode = "ROLE_PG_MGR_HOME", order = 3, visible = false)

@@ -1,8 +1,11 @@
 package com.sprsec.service.impl;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,6 +16,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -89,6 +95,23 @@ public class Navigation implements BeanPostProcessor,
 
 	public Map<String, NavEntry> getMenuList() {
 		return navigations;
+	}
+
+	public List<NavEntry> displayMenuList() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		@SuppressWarnings("unchecked")
+		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) userDetails
+				.getAuthorities();
+		Map<String, NavEntry> allowAccessList = getMenuList();
+		List<NavEntry> navigationEntries = new ArrayList<NavEntry>();
+		for (GrantedAuthority grantedAuthority : authorities) {
+			if (allowAccessList.get(grantedAuthority.getAuthority()) != null) {
+				navigationEntries.add(allowAccessList.get(grantedAuthority
+						.getAuthority()));
+			}
+		}
+		return navigationEntries;
 	}
 
 	public class NavEntry {
