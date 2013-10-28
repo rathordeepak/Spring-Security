@@ -1,6 +1,8 @@
 package com.sprsec.init;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
@@ -121,6 +125,17 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return fvr;
 	}
 
+	
+	@Bean
+	public ContentNegotiatingViewResolver contentNegotiatingViewResolver() {
+		ContentNegotiatingViewResolver contentNegotiatingViewResolver = new ContentNegotiatingViewResolver();
+		Map<String,String> mediaTypes = new HashMap<String,String>();
+		mediaTypes.put("html", "text/html");
+		mediaTypes.put("json", "application/json");
+		contentNegotiatingViewResolver.setMediaTypes(mediaTypes);
+		return contentNegotiatingViewResolver;
+	}
+	
 	@Bean
 	public LocaleResolver localeResolver() {
 		final CookieLocaleResolver ret = new CookieLocaleResolver();
@@ -144,6 +159,16 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		ret.setInterceptors(new Object[] { interceptor });
 		return ret;
 	}
+
+	/*@Override
+	public void configureContentNegotiation(
+			ContentNegotiationConfigurer configurer) {
+		configurer.favorPathExtension(false).favorParameter(true)
+				.parameterName("mediaType").ignoreAcceptHeader(true)
+				.useJaf(false).defaultContentType(MediaType.APPLICATION_JSON)
+				.mediaType("xml", MediaType.APPLICATION_XML)
+				.mediaType("json", MediaType.APPLICATION_JSON);
+	}*/
 
 	@Bean
 	public LocaleChangeInterceptor localeChangeInterceptor() {

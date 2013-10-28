@@ -1,7 +1,7 @@
 body {
-    background: url("img/bg.jpg") repeat scroll 0 0;
-    margin: 0 auto;
-    padding: 0;
+	background: url("img/bg.jpg") repeat scroll 0 0;
+	margin-left: 140px;
+	padding: 60px 0px 50px;
 }
 
 .content {
@@ -10,9 +10,10 @@ body {
 	min-height: 600px;
 }
 
-.dropdown-menu{
-	border-radius:0px 0px 0px 0px
+.dropdown-menu {
+	border-radius: 0px 0px 0px 0px
 }
+
 p.small {
 	font-size: 0.8em;
 	color: #6D6D6D;
@@ -46,7 +47,6 @@ h1,h2 {
 h3,h4 {
 	color: #4D4D4D;
 }
-
 
 .input-tiny {
 	width: 5px;
@@ -150,8 +150,7 @@ legend small {
 }
 
 .logo {
-	background: url("../img/logo.png") no-repeat scroll 0 0
-		transparent;
+	background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
 	float: left;
 	height: 100px;
 	margin: 0 15px 0 5px;
@@ -159,98 +158,105 @@ legend small {
 }
 
 #menu {
-    width: 100%;
-    margin: 0px auto;
-    height: 40px;
-    background: -moz-linear-gradient(center top , rgb(80, 80, 80), rgb(52, 52, 52)) repeat scroll 0% 0% transparent;
-    box-shadow: 3px 3px 3px rgb(183, 183, 183);
+	width: 100%;
+	margin: 0px auto;
+	height: 40px;
+	background: -moz-linear-gradient(center top, rgb(80, 80, 80),
+		rgb(52, 52, 52) ) repeat scroll 0% 0% transparent;
+	box-shadow: 3px 3px 3px rgb(183, 183, 183);
 }
 
 .powered-by-info {
-    float: right;
+	float: right;
 }
 
 .powered-by-info .powered-by-label {
-    font-size: 0.8em;
+	font-size: 0.8em;
 }
 
-
-#ds-initial-notification a{
+#ds-initial-notification a {
 	background-color: white;
-    border: 1px solid #74A82A;
-    color: red;
-    font-weight: bold;
-    line-height: 18px !important;
-    margin: 10px 0;
-    padding: 3px 6px;
+	border: 1px solid #74A82A;
+	color: red;
+	font-weight: bold;
+	line-height: 18px !important;
+	margin: 10px 0;
+	padding: 3px 6px;
 }
 
-#ds-initial-notification a:hover{
+#ds-initial-notification a:hover {
 	background-color: #FF6600;
-    color: white;
-    cursor: pointer;
+	color: white;
+	cursor: pointer;
 }
 
 .gts-flat-dropdown-menu {
-    max-width: 900px;
-}
-.gts-flat-dropdown-menu td {
-    vertical-align: top;
-}
-.gts-user-dropdown-menu {
-    padding-left: 6px;
-    padding-right: 6px;
-    width: 300px;
-}
-.gts-user-dropdown-menu .user-photo {
-    background: none no-repeat scroll 0 0 transparent;
-    height: 64px;
-    vertical-align: top;
-    width: 64px;
-}
-.gts-user-dropdown-menu .user-details {
-    display: inline-block;
-    width: 195px;
-}
-.user-name {
-    color: #5F5F5F;
-    font-size: 1.0em;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px #C9C9C9;
+	max-width: 900px;
 }
 
-.user-email{
-	 color: #5F5F5F;
-    font-size: 0.8em;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px #C9C9C9;
+.gts-flat-dropdown-menu td {
+	vertical-align: top;
+}
+
+.gts-user-dropdown-menu {
+	padding-left: 6px;
+	padding-right: 6px;
+	width: 300px;
+}
+
+.gts-user-dropdown-menu .user-photo {
+	background: none no-repeat scroll 0 0 transparent;
+	height: 64px;
+	vertical-align: top;
+	width: 64px;
+}
+
+.gts-user-dropdown-menu .user-details {
+	display: inline-block;
+	width: 195px;
+}
+
+.user-name {
+	color: #5F5F5F;
+	font-size: 1.0em;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px #C9C9C9;
+}
+
+.user-email {
+	color: #5F5F5F;
+	font-size: 0.8em;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px #C9C9C9;
 }
 
 .gts-user-dropdown-menu .user-footer {
-    width: 100%;
+	width: 100%;
 }
+
 .gts-user-dropdown-menu .user-footer .user-signout {
-    clear: none !important;
-    margin-right: 5px;
-    width: 115px;
+	clear: none !important;
+	margin-right: 5px;
+	width: 115px;
 }
 
 .dropdown-menu a {
-    clear: both;
-    color: #333333;
-    display: block;
-    font-weight: normal;
-    line-height: 18px;
-    padding: 3px 15px;
-    white-space: nowrap;
-}
-.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
-    background-color: #003482;
-    color: #FFFFFF;
-    text-decoration: none;
+	clear: both;
+	color: #333333;
+	display: block;
+	font-weight: normal;
+	line-height: 18px;
+	padding: 3px 15px;
+	white-space: nowrap;
 }
 
+.dropdown-menu li>a:hover,.dropdown-menu .active>a,.dropdown-menu .active>a:hover
+	{
+	background-color: #003482;
+	color: #FFFFFF;
+	text-decoration: none;
+}
 
-.bookmark-listing-box-header{
+.bookmark-listing-box-header {
 	
 }

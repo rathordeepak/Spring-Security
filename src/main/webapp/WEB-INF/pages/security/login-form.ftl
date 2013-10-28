@@ -82,8 +82,8 @@
 		</div>	
 	</div>
 	
-	<script src="${rc.getContextPath()}/resources/js/jquery-1.9.1.js"></script>
-	<script src="${rc.getContextPath()}/resources/js/bootstrap.min.js"></script>
-	<script src="${rc.getContextPath()}/resources/js/angular.js"></script>
+	<script src="${rc.getContextPath()}/resources/js/core/jquery-1.9.1.js"></script>
+	<script src="${rc.getContextPath()}/resources/js/core/bootstrap.min.js"></script>
+	<script src="${rc.getContextPath()}/resources/js/core/angular.js"></script>
 </body>
 </html>
