@@ -10,7 +10,7 @@ public class SecurityNavigation {
 
 	@RequestMapping(value = "/user-login", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
-		return new ModelAndView("security/login-form");
+		return new ModelAndView("login-form");
 	}
 
 	@RequestMapping(value = "/error-login", method = RequestMethod.GET)
@@ -22,12 +22,12 @@ public class SecurityNavigation {
 
 	@RequestMapping(value = "/success-login", method = RequestMethod.GET)
 	public ModelAndView successLogin() {
-		return new ModelAndView("security/success-login");
+		return new ModelAndView("home");
 	}
 
 	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
 	public ModelAndView accessDenied() {
-		return new ModelAndView("security/access-denied");
+		return new ModelAndView("access-denied");
 	}
 
 }

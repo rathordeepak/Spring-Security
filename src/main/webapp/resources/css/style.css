@@ -1,7 +1,13 @@
 body {
-	background: url("img/bg.jpg") repeat scroll 0 0;
-	margin-left: 140px;
-	padding: 60px 0px 50px;
+	margin-top: 50px; /* 50px is the height of the navbar - change this if the navbarn height changes */
+}
+
+.thumb {
+	margin-bottom: 30px;
+}
+
+footer {
+	margin: 50px 0;
 }
 
 .content {
