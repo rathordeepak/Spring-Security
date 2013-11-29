@@ -4,82 +4,46 @@
   <head>
 	<title>Login page</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="${rc.getContextPath()}/resources/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="${rc.getContextPath()}/resources/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${rc.getContextPath()}/resources/css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="${rc.getContextPath()}/resources/css/style.css">
   </head>
-<body>
-	<header role="banner" class="navbar navbar-inverse navbar-fixed-top bs-docs-nav">
-	  <div class="container">
-	    <div class="navbar-header">
-	      <button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="../">Team work</a>
-	    </div>
-	    <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
-	      <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Select Language <b class="caret"></b></a>
-              <ul role="menu" class="dropdown-menu">
-                <li><a href="?lang=en">English</a></li>
-                <li><a href="?lang=de">German</a></li>
-                <li><a href="?lang=en">French</a></li>
-                <li><a href="?lang=de">Hindi</a></li>
-              </ul>
-            </li>
-          </ul>
-	    </nav>
-	  </div>
-	</header>
+<body id="login">
+	<div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">Job Portal</a>
+                    <div class="nav-collapse collapse pull-right">
+                        <ul class="nav navbar-nav navbar-right">
+				            <li class="dropdown">
+				              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Select Language <b class="caret"></b></a>
+				              <ul role="menu" class="dropdown-menu">
+				                <li><a href="?lang=en">English</a></li>
+				                <li><a href="?lang=de">German</a></li>
+				                <li><a href="?lang=en">French</a></li>
+				                <li><a href="?lang=de">Hindi</a></li>
+				              </ul>
+				            </li>
+				          </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
 	<div class="container">
-		<div class="content">
-			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-6">
-					<div class="panel panel-primary">
-					    <div class="panel-heading">
-					      <h3 class="panel-title">Sign In</h3>
-					    </div>
-					    <div class="panel-body">
-					      <form class="form-horizontal" role="form" method="post" action="j_spring_security_check">
-							  <div class="form-group">
-							    <label for="inputEmail1" class="col-lg-2 control-label"><@spring.message "label.firstname"/></label>
-							    <div class="col-lg-10">
-							      <input type="text" class="form-control" name="j_username" placeholder="Email Or User name">
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <label for="inputPassword1" class="col-lg-2 control-label">Password</label>
-							    <div class="col-lg-10">
-							      <input type="password" class="form-control" name="j_password" placeholder="Password">
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <div class="col-lg-offset-2 col-lg-10">
-							      <div class="checkbox">
-							        <label>
-							          <input type="checkbox"> Remember me
-							        </label>
-							      </div>
-							    </div>
-							  </div>
-							  <div class="form-group">
-							    <div class="col-lg-offset-2 col-lg-10">
-							      <button type="submit" class="btn btn-primary">Sign in</button>
-							    </div>
-							  </div>
-							</form>
-
-					    </div>
-					  </div>
-					</div>
-				<div class="col-md-3"></div>
-			</div>
-		</div>	
+		<form class="form-signin" method="post" action="j_spring_security_check">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="input-block-level" placeholder="Email address" name="j_username">
+        <input type="password" class="input-block-level" placeholder="Password" name="j_password">
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+      </form>
 	</div>
 	
 	<script src="${rc.getContextPath()}/resources/js/core/jquery-1.9.1.js"></script>
