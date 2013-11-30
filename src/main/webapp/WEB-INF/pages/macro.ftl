@@ -29,7 +29,7 @@
 
 	</head>
 	
-	<body>
+	<body ng-app="profileApp">
 		<#include "top-bar.ftl" />
 		
 		<#nested/>

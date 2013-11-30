@@ -53,8 +53,9 @@ angular
 								parent : settings,
 								abstract : true,
 								url : '',
-								templateUrl :  _context
-								+ '/templates/settings/changepassword.html',
+								templateUrl : _context
+										+ '/templates/settings/changepassword.html',
+								controller : 'ChangePasswordController'
 							};
 							var userDetails = {
 								name : 'settings.user.default',
@@ -94,10 +95,18 @@ angular
 							};
 
 							$stateProvider.state(settings).state(userBase)
-									.state(userDetails)
-									.state(userQuotes);
+									.state(userDetails).state(userQuotes);
 						} ]).controller('SettingsLayoutController',
 				[ '$scope', '$stateParams', function($scope, $stateParams) {
+					$scope.user = {
+						name : "Bob Loblaw",
+						email : "bobloblaw@lawblog.com",
+						password : 'semi-secret',
+						quotes : "Lorem ipsum dolor sic amet"
+					};
+				} ]).controller('ChangePasswordController',
+				[ '$scope', '$stateParams', function($scope, $stateParams) {
+					console.log('m reached inisde');
 					$scope.user = {
 						name : "Bob Loblaw",
 						email : "bobloblaw@lawblog.com",
