@@ -32,8 +32,18 @@ public class TemplateController {
 			File file = new File(
 					servletContext.getRealPath("WEB-INF/pages/templates/"
 							+ pageName + ".html"));
+			File jsFile = new File(
+					servletContext.getRealPath("WEB-INF/pages/templates/"
+							+ pageName + ".js"));
 			if (file == null || !file.exists()) {
 				throw new FileNotFoundException();
+			}
+			if (jsFile.exists()) {
+				File jsFileLocation = new File(
+						servletContext
+								.getRealPath("resources/js/pages/templates/profileinfo.js"));
+				FileUtils.writeStringToFile(jsFileLocation,
+						FileUtils.readFileToString(jsFile), true);
 			}
 			response.setContentType("text/html");
 			content = FileUtils.readFileToString(file);
@@ -55,6 +65,16 @@ public class TemplateController {
 			File file = new File(
 					servletContext.getRealPath("WEB-INF/pages/templates/"
 							+ subfolder + "/" + page + ".html"));
+			File jsFile = new File(
+					servletContext.getRealPath("WEB-INF/pages/templates/"
+							+ subfolder + "/" + page + ".js"));
+			if (jsFile.exists()) {
+				File jsFileLocation = new File(
+						servletContext
+								.getRealPath("resources/js/pages/templates/profileinfo.js"));
+				FileUtils.writeStringToFile(jsFileLocation,
+						FileUtils.readFileToString(jsFile), true);
+			}
 			if (file == null || !file.exists()) {
 				throw new FileNotFoundException();
 			}
