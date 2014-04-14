@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("templateController")
 public class TemplateController {
-
+	
 	@Autowired
 	private ServletContext servletContext;
 

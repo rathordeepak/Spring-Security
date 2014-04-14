@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,12 +27,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserDAO userDAO;
-
+	
+	@Autowired
+	private HttpServletRequest httpservlet;
+	
 	public UserDetails loadUserByUsername(String login)
 			throws UsernameNotFoundException {
 
 		com.sprsec.model.User domainUser = userDAO.getUser(login);
-
+		
 		boolean enabled = true;
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;

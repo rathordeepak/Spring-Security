@@ -3,6 +3,8 @@ package com.sprsec.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,10 +26,9 @@ public class SecurityNavigation {
 	}
 
 	@RequestMapping(value = "/success-login", method = RequestMethod.GET)
-	public ModelAndView successLogin() {
-		Map<String,Object> model = new HashMap<String, Object>();
-		model.put("appName","mainApp");
-		return new ModelAndView("home",model);
+	public ModelAndView successLogin(HttpServletRequest request) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		return new ModelAndView("home", model);
 	}
 
 	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)

@@ -29,7 +29,7 @@
 
 	</head>
 	
-	<body ng-app="profileApp">
+	<body>
 		<#include "top-bar.ftl" />
 		
 		<#nested/>
@@ -58,4 +58,49 @@
 
 	</body>
 	</html>
+</#macro>
+
+
+<#macro settingsmenu>
+	<ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+            <li class="active">
+                <a href="index.html"><i class="icon-chevron-right"></i> Settings</a>
+            </li>
+            <li>
+                <a href="#">Account</a>
+            </li>
+            <li>
+                <a href="#">Transaction Items</a>
+            </li>
+        </ul>
+</#macro>
+<#macro profilemenu>
+	<ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+        <li class="active">
+            <a href="#"><i class="icon-chevron-right"></i>Profile Info</a>
+        </li>
+        <li>
+        	<a href="#/home">Home</a> 
+        </li>
+        <li>
+           <a href="#/list">Edit Profile</a>
+        </li>
+        <li>
+       		<a href="#/settings">Settings</a>
+        </li>
+    </ul>
+</#macro>
+
+<#macro transactionmenu>
+	<ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+        <li class="active">
+            <a href="index.html"><i class="icon-chevron-right"></i>Transactions</a>
+        </li>
+        <li>
+            <a href="#">Income</a>
+        </li>
+        <li>
+            <a href="#">Expense</a>
+        </li>
+    </ul>
 </#macro>

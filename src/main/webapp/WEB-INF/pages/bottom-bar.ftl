@@ -1,5 +1,5 @@
   <hr>
             <footer>
-                <p>&copy; Vincent Gabriel 2013</p>
+                <p>&copy; copyright 2014</p>
             </footer>
         </div>

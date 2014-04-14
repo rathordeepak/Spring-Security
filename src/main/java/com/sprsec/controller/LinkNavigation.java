@@ -39,32 +39,4 @@ public class LinkNavigation {
 		return new ModelAndView("home", model);
 	}
 
-	@Menu(title = "Manager", url = "/manager/home", accessCode = "ROLE_PG_MGR_HOME", order = 3, visible = false)
-	@RequestMapping(value = "/manager/home", method = RequestMethod.GET)
-	@Secured("ROLE_PG_MGR_HOME")
-	public ModelAndView moderatorPage() {
-		return new ModelAndView("moderation");
-	}
-
-	@Menu(title = "Employee", url = "/employee/home", accessCode = "ROLE_PG_EMP_HOME", order = 4, visible = false)
-	@RequestMapping(value = "/employee/home", method = RequestMethod.GET)
-	@Secured("ROLE_PG_EMP_HOME")
-	public ModelAndView firstAdminPage() {
-		return new ModelAndView("admin-second");
-	}
-
-	@Menu(title = "Admin", url = "/admin/home", accessCode = "ROLE_PG_HOME", order = 5, visible = false)
-	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
-	@Secured("ROLE_PG_HOME")
-	public ModelAndView secondAdminPage() {
-		return new ModelAndView("admin-first");
-	}
-
-	@Menu(title = "Test", url = "/test", accessCode = "ROLE_TEST", order = 5, visible = false)
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	@Secured("ROLE_TEST")
-	public ModelAndView test() {
-		return new ModelAndView("test");
-	}
-
 }

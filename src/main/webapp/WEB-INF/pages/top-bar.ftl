@@ -5,11 +5,11 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Admin Panel</a>
+                    <a class="brand" href="index">Family Budget</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
                             <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Arunachalam <i class="caret"></i>
 
                                 </a>
                                 <ul class="dropdown-menu">
@@ -24,8 +24,9 @@
                             </li>
                         </ul>
                         <ul class="nav">
-							<li ng-class="{ active: $state.includes('home') }"><a href="#/">Home</a></li>
-                    		<li ng-class="{ active: $state.includes('settings') }"><a href="#/settings">Settings</a></li>
+							<li><a href="index">Home</a></li>
+                    		<li><a href="transaction">Transaction</a></li>
+                    		<li><a href="settings">Settings</a></li>
 						</ul>
 					</div>
                     <!--/.nav-collapse -->

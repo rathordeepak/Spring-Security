@@ -1,116 +1,80 @@
-/* myApp module */
-angular.module('profileApp', [ 'ui.state', 'accountSettings' ]).config(
-		[
-				'$stateProvider',
-				'$routeProvider',
-				'$urlRouterProvider',
-				function($stateProvider, $routeProvider, $urlRouterProvider) {
+angular.module('app', ['appServices'])
+    .config(['$routeProvider', function($routeProvider) {
+        $routeProvider.
+                when('/home', {templateUrl: 'home.html',   controller: HomeCtrl}).
+                when('/list', {templateUrl: 'list.html',   controller: ListCtrl}).
+                when('/detail/:itemId', {templateUrl: 'detail.html',   controller: DetailCtrl}).
+                when('/settings', {templateUrl: 'settings.html',   controller: SettingsCtrl}).
+                otherwise({redirectTo: '/home'});
+}]);
 
-					var home = {
-						name : 'home',
-						url : '/',
-						templateUrl : _context + '/templates/home.html',
-						controller : [
-								'$scope',
-								function($scope) {
-									$scope.awesomeThings = [ 'AngularJS',
-											'AngularJS-Ui-Router' ];
-								} ]
-					};
 
-					$stateProvider.state(home);
-				} ]).run(
-		[ '$rootScope', '$state', '$stateParams',
-				function($rootScope, $state, $stateParams) {
-					$rootScope.$state = $state;
-					$rootScope.$stateParams = $stateParams;
-					$state.transitionTo('home');
-				} ]);
+/* Controllers */
 
-/* accountSettings Module */
-angular
-		.module('accountSettings', [ 'ui.state' ])
-		.config(
-				[
-						'$stateProvider',
-						'$routeProvider',
-						'$urlRouterProvider',
-						function($stateProvider, $routeProvider,
-								$urlRouterProvider) {
+function MainCtrl($scope, Page) {
+    console.log(Page);
+    $scope.page= Page; 
+}
 
-							var settings = {
-								name : 'settings',
-								url : '/settings',
-								abstract : true,
-								templateUrl : _context
-										+ '/templates/settings/main.html',
+function HomeCtrl($scope, Page) {
+    Page.setTitle("Welcome");
+}
 
-								controller : 'SettingsLayoutController'
-							};
 
-							var userBase = {
-								name : 'settings.user',
-								parent : settings,
-								abstract : true,
-								url : '',
-								templateUrl : _context
-										+ '/templates/settings/changepassword.html',
-								controller : 'ChangePasswordController'
-							};
-							var userDetails = {
-								name : 'settings.user.default',
-								parent : userBase,
-								url : '',
-								views : {
-									'pass' : {
-										template : '<div><label>Password <button class="btn" ng-click="edit()">Edit</button></label>**********</div>',
-										controller : 'EditUserDetailsController'
-									},
-									'hint@' : {
-										template : "editing user details"
-									},
-									'menu@settings' : {
-										template : "user details"
-									}
-								}
-							};
+function ListCtrl($scope, Page, Model) {
+    Page.setTitle("Items");
+    $scope.items = Model.notes();
 
-							var userQuotes = {
-								name : 'settings.quotes',
-								parent : settings,
-								url : '/quotes',
-								views : {
-									'' : {
-										template : '<h3>{{user.name}}\'s Quotes</h3><hr>'
-												+ '<div><label>Quotes</label><textarea type="text" ng-model="user.quotes"></textarea></div>'
-												+ '<button class="btn" ng-click="done()">Save</button>'
-									},
-									'hint@' : {
-										template : "editing user quotes"
-									},
-									'menu@settings' : {
-										template : "quotes edit"
-									}
-								}
-							};
+}
 
-							$stateProvider.state(settings).state(userBase)
-									.state(userDetails).state(userQuotes);
-						} ]).controller('SettingsLayoutController',
-				[ '$scope', '$stateParams', function($scope, $stateParams) {
-					$scope.user = {
-						name : "Bob Loblaw",
-						email : "bobloblaw@lawblog.com",
-						password : 'semi-secret',
-						quotes : "Lorem ipsum dolor sic amet"
-					};
-				} ]).controller('ChangePasswordController',
-				[ '$scope', '$stateParams', function($scope, $stateParams) {
-					console.log('m reached inisde');
-					$scope.user = {
-						name : "Bob Loblaw",
-						email : "bobloblaw@lawblog.com",
-						password : 'semi-secret',
-						quotes : "Lorem ipsum dolor sic amet"
-					};
-				} ]);
+function DetailCtrl($scope, Page, Model, $routeParams, $location) {
+    Page.setTitle("Detail");
+    var id = $scope.itemId = $routeParams.itemId;
+    $scope.item = Model.get(id);
+}
+
+function SettingsCtrl($scope, Page) {
+    Page.setTitle("Settings");
+}
+
+/* Services */
+
+angular.module('appServices', [])
+
+        .factory('Page', function($rootScope){
+            var pageTitle = "Untitled";
+            return {
+                title:function(){
+                    return pageTitle;
+                },
+                setTitle:function(newTitle){
+                    pageTitle = newTitle;
+                }
+            }
+        })
+
+        .factory ('Model', function () {
+            var data = [
+                {id:0, title:'Doh', detail:"A dear. A female dear."},
+                {id:1, title:'Re', detail:"A drop of golden sun."},
+                {id:2, title:'Me', detail:"A name I call myself."},
+                {id:3, title:'Fa', detail:"A long, long way to run."},
+                {id:4, title:'So', detail:"A needle pulling thread."},
+                {id:5, title:'La', detail:"A note to follow So."},
+                {id:6, title:'Tee', detail:"A drink with jam and bread."}
+            ];
+            return {
+                notes:function () {
+                    return data;
+                },
+                get:function(id){
+                  return data[id];
+                },
+                add:function (note) {
+                    var currentIndex = data.length;
+                    data.push({
+                        id:currentIndex, title:note.title, detail:note.detail
+                    });
+                }
+            }
+});
