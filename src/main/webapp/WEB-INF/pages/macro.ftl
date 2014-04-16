@@ -80,13 +80,10 @@
             <a href="#"><i class="icon-chevron-right"></i>Profile Info</a>
         </li>
         <li>
-        	<a href="#/home">Home</a> 
+        	<a href="#/edit-profile">Profile</a> 
         </li>
         <li>
-           <a href="#/list">Edit Profile</a>
-        </li>
-        <li>
-       		<a href="#/settings">Settings</a>
+       		<a href="#/change-password">ChangePassword</a>
         </li>
     </ul>
 </#macro>
