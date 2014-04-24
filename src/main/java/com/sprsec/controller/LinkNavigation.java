@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.navigation.Menu;
+import com.sprsec.service.UserService;
 import com.sprsec.service.impl.Navigation;
 
 @Controller
@@ -20,6 +21,9 @@ public class LinkNavigation {
 
 	@Autowired
 	private Navigation navigation;
+	
+	@Autowired
+	private UserService userService;
 
 	@Menu(title = "home", url = "/", accessCode = "ROLE_PG_HOME", order = 1, visible = false)
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -27,6 +31,7 @@ public class LinkNavigation {
 	public ModelAndView homePage(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("menus", navigation.displayMenuList());
+		model.put("user", userService.getUser());
 		return new ModelAndView("home", model);
 	}
 
@@ -36,6 +41,7 @@ public class LinkNavigation {
 	public ModelAndView indexPage() {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("menus", navigation.displayMenuList());
+		model.put("user", userService.getUser());
 		return new ModelAndView("home", model);
 	}
 

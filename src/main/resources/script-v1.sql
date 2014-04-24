@@ -82,6 +82,11 @@ CREATE TABLE tbl_role_accessrights
 )
 
 
+create table tblcategorytype(cid serial not null, description varchar(200), code varchar(500), 
+constraint pk_tblcategorytype primary key(cid));
+
+create table tblcategoryitem(cid serial not null, description varchar(200), type integer 
+references tblcategorytype(cid), constraint pk_tblcategoryitem primary key(cid));
 
 insert into tbluser(name,isadmin,password,email) values('superuser',true,'sa','rathordeepak1985@yahoo.in')
 

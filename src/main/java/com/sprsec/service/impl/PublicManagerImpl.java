@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,5 +51,5 @@ public class PublicManagerImpl implements PublicManager {
 	public <T> T getObjectOrNull(Class<T> clazz, Serializable id) {
 		return publicDao.getObjectOrNull(clazz, id);
 	}
-
+	
 }

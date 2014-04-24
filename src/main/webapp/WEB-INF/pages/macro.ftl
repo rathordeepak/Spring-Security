@@ -64,13 +64,16 @@
 <#macro settingsmenu>
 	<ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
             <li class="active">
-                <a href="index.html"><i class="icon-chevron-right"></i> Settings</a>
+                <a href="#"><i class="icon-chevron-right"></i> Settings</a>
             </li>
             <li>
-                <a href="#">Account</a>
+                <a href="#/account">Account</a>
             </li>
             <li>
-                <a href="#">Transaction Items</a>
+                <a href="#/transitionType">Transaction Type</a>
+            </li>
+            <li>
+                <a href="#/transitionItem">Transaction Items</a>
             </li>
         </ul>
 </#macro>

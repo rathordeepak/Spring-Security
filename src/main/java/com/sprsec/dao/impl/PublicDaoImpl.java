@@ -3,6 +3,7 @@ package com.sprsec.dao.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,10 @@ public class PublicDaoImpl implements PublicDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	public Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
