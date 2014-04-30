@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sprsec.common.CommonUtils;
+import com.sprsec.controller.form.CategoryItemForm;
+import com.sprsec.model.CategoryItem;
 import com.sprsec.model.CategoryType;
 import com.sprsec.service.BudgetManager;
 import com.sprsec.service.PublicManager;
@@ -86,7 +88,36 @@ public class SettingsController {
 	Map<String, Object> categoryItem(HttpServletRequest request,
 			@PathVariable("type") int type) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("categoryTypes", budgetManager.getCategoryItems(type));
+		model.put("categoryItems", budgetManager.getCategoryItems(type));
+		return model;
+	}
+
+	@RequestMapping(value = "category-item", method = RequestMethod.POST)
+	@Secured("ROLE_PG_HOME")
+	public @ResponseBody
+	Map<String, Object> saveCategoryItem(HttpServletRequest request,
+			@RequestBody CategoryItemForm categoryItemForm) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		CategoryItem categoryItem = new CategoryItem();
+		if (categoryItemForm.getId() > 0) {
+			categoryItem = publicManager.getObject(CategoryItem.class,
+					categoryItemForm.getId());
+		}
+		categoryItem.setDescription(categoryItemForm.getDescription());
+		CategoryType object = publicManager.getObject(CategoryType.class,
+				categoryItemForm.getType());
+		categoryItem.setType(object);
+		publicManager.saveObject(categoryItem);
+		return model;
+	}
+
+	@RequestMapping(value = "category-item/{id}", method = RequestMethod.DELETE)
+	@Secured("ROLE_PG_HOME")
+	public @ResponseBody
+	Map<String, Object> deleteCategoryItem(HttpServletRequest request,
+			@PathVariable("id") int id) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		publicManager.removeObject(CategoryItem.class, id);
 		return model;
 	}
 

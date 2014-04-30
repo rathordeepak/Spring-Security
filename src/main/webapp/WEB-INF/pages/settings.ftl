@@ -60,7 +60,7 @@
 		<div class="control-group">
 			<div class="controls">
 				<button class="btn btn-primary" ng-click="onSave()">Save</button>
-				<button class="btn">Reset</button>
+				<button class="btn" ng-click="onCancel()">Back</button>
 			</div>
 		</div>
     </form>
@@ -71,22 +71,18 @@
 	<div class="row-fluid" ng-hide="editView">
 		<div class="span6">
 			<button class="btn btn-mini pull-right" ng-click="onEditView(-1)">Add</button>
-			<select ng-model="categoryType">
-				
+			<select ng-model="categoryType" ng-change="onShowBasedType(categoryType)">
+				<option ng-repeat="ct in categoryTypes" value="{{ct.id}}">{{ct.description}}</option>
 			</select> 
-			
-			
 			<table class="table">
 				<thead>
 					<tr>
 						<td>Description</td>
-						<td>Code</td>
 						<td></td>
 					</tr>
 				</thead>
-				<tr ng-repeat="ct in categoryItem">
+				<tr ng-repeat="ct in categoryItems">
 					<td>{{ct.description}}</td>
-					<td>{{ct.code}}</td>
 					<td>
 						<button class="btn btn-mini" ng-click="onEditView($index)">Edit</button>
 						<button class="btn btn-mini" ng-click="onDelete($index)">Delete</button>
@@ -95,6 +91,23 @@
 			</table>
 		</div>
 	</div>
+	
+	<form class="form-horizontal" ng-show="editView">
+    	<div class="control-group">
+			<label class="control-label">Description</label>
+			<div class="controls">
+				<input type="text" ng-model="categoryItem.description">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button class="btn btn-primary" ng-click="onSave()">Save</button>
+				<button class="btn" ng-click="onCancel()">Back</button>
+			</div>
+		</div>
+    </form>
+	
+	
 </script>
     
 </div>

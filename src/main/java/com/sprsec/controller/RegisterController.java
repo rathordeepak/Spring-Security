@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sprsec.model.Role;
-import com.sprsec.model.User;
 import com.sprsec.service.PublicManager;
 import com.sprsec.service.RoleService;
 

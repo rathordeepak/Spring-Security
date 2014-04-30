@@ -11,12 +11,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tblcategorytype")
+@Table(name = "tblcategoryitem")
 public class CategoryItem {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "tblcategorytype_cid_gen")
-	@SequenceGenerator(name = "tblcategorytype_cid_gen", sequenceName = "tblcategorytype_cid_seq")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "tblcategoryitem_cid_gen")
+	@SequenceGenerator(name = "tblcategoryitem_cid_gen", sequenceName = "tblcategoryitem_cid_seq")
 	@Column(name = "cid")
 	private Integer id;
 

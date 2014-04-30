@@ -34,6 +34,10 @@ function TransitionTypeCtrl($scope, Page, $http) {
 		});
 	}
 
+	$scope.onCancel = function() {
+		$scope.editView = false;
+	}
+	
 	$scope.onEditView = function(index) {
 		$scope.editView = true;
 		$scope.category = $scope.categoryTypes[index];
@@ -57,33 +61,52 @@ function TransitionTypeCtrl($scope, Page, $http) {
 
 }
 
-function TransitionItemCtrl($scope, Page) {
+function TransitionItemCtrl($scope, Page, $http) {
 	Page.setTitle("Transition Items");
-	
+	$scope.categoryType = 1;
 	$scope.editView = false;
 	$scope.categoryItem = {};
 	var load = function() {
 		$http.get(_contextPath + '/category-item').success(function(response) {
+			$scope.categoryTypes = response.categoryTypes;
+		});
+	}
+	
+	var showcategoryItems = function(categoryType) {
+		$scope.categoryType = categoryType;
+		$http.get(_contextPath + '/category-item/'+categoryType).success(function(response) {
 			$scope.categoryItems = response.categoryItems;
 		});
+	}
+	
+	$scope.onShowBasedType = function(categoryType) {
+		showcategoryItems(categoryType); 
+	}
+	
+	$scope.onCancel = function() {
+		$scope.editView = false;
 	}
 
 	$scope.onEditView = function(index) {
 		$scope.editView = true;
-		$scope.categoryItem = $scope.categoryItems[index];
+		$scope.categoryItem = $scope.categoryItems[index] || {};
 	}
 	
 	$scope.onSave = function() {
+		$scope.categoryItem.type = parseInt($scope.categoryType);   
+		if(!$scope.categoryItem.id) {
+			$scope.categoryItem.id = 0;
+		}
 		$http.post(_contextPath+'/category-item',$scope.categoryItem).success(function(response) {
 			$scope.editView = false;
-			load();
+			showcategoryItems($scope.categoryType);
 		});
 	}
 	
 	$scope.onDelete = function(index) {
 		$http.delete(_contextPath+'/category-item/'+$scope.categoryItems[index].id).
 				success(function(response){
-			load();
+			showcategoryItems($scope.categoryType);
 		});
 	}
 	
