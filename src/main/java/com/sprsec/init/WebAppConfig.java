@@ -1,6 +1,7 @@
 package com.sprsec.init;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
@@ -8,6 +9,8 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +19,8 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -32,6 +37,8 @@ import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMa
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+
+import com.sprsec.common.MyObjectMapper;
 
 @Configuration
 @EnableWebMvc
@@ -124,17 +131,26 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 		return fvr;
 	}
 
-	
+	@Bean
+	public SerializationConfig serializationConfig() {
+		return jacksonObjectMapper().getSerializationConfig();
+	}
+
+	@Bean
+	public ObjectMapper jacksonObjectMapper() {
+		return new MyObjectMapper();
+	}
+
 	@Bean
 	public ContentNegotiatingViewResolver contentNegotiatingViewResolver() {
 		ContentNegotiatingViewResolver contentNegotiatingViewResolver = new ContentNegotiatingViewResolver();
-		Map<String,String> mediaTypes = new HashMap<String,String>();
+		Map<String, String> mediaTypes = new HashMap<String, String>();
 		mediaTypes.put("html", "text/html");
 		mediaTypes.put("json", "application/json");
 		contentNegotiatingViewResolver.setMediaTypes(mediaTypes);
 		return contentNegotiatingViewResolver;
 	}
-	
+
 	@Bean
 	public LocaleResolver localeResolver() {
 		final CookieLocaleResolver ret = new CookieLocaleResolver();

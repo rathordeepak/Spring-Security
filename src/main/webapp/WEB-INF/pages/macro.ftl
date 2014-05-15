@@ -94,13 +94,13 @@
 <#macro transactionmenu>
 	<ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
         <li class="active">
-            <a href="index.html"><i class="icon-chevron-right"></i>Transactions</a>
+            <a href="#"><i class="icon-chevron-right"></i>Transactions</a>
         </li>
         <li>
-            <a href="#">Income</a>
+            <a href="#/income">Income</a> 
         </li>
         <li>
-            <a href="#">Expense</a>
+            <a href="#/expense">Expense</a>
         </li>
     </ul>
 </#macro>

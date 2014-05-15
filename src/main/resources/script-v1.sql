@@ -138,3 +138,6 @@ values(3,1,true)
 
 insert into tbl_role_accessrights(roleid,featureid,read_write_access) 
 values(3,3,true)
+
+
+create table tbltransition(cid serial, categorytype integer, categoryitem integer, transdate date, amount decimal)
